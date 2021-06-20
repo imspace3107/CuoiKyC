@@ -1,0 +1,129 @@
+﻿@model ModelEF.Model.Product
+@{
+    /**/
+
+    ViewBag.Title = "Add Product";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+
+    .form-group input#buttonMain {
+        padding: 10px 15px;
+        width: 200px;
+    }
+
+    .panel-body {
+        padding: 15px 35px;
+    }
+
+    #bntChoosImage {
+        margin-top: 10px;
+    }
+
+    .col-md-6 {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    input {
+        margin-top: 10px;
+        color: #000
+    }
+
+    .form-control {
+        border: 1px solid #e2e2e4;
+        box-shadow: none;
+        color: #000000;
+    }
+
+    .btn-danger {
+        background-color: #000000;
+        border-color: #000000;
+        color: #FFFFFF;
+    }
+
+        .btn-danger:hover {
+            background-color: #000000;
+            border-color: #000000;
+            color: #FFFFFF;
+        }
+
+        .btn-danger:focus {
+            background-color: #000000;
+            border-color: #000000;
+            color: #FFFFFF;
+        }
+</style>
+
+@section header{
+    <div id="titleMain">
+        <a href="~/Admin/Home/Index"> Home</a><span style="color:#ff0000">  &#160;/&#160; Add Product</span>
+    </div>
+
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <span>Name Product</span>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Name Product..." } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <span>UnitCost</span>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.UnitCost, new { htmlAttributes = new { type = "number", @class = "form-control", required = "required", placeholder = "UnitCost..." } })
+                @Html.ValidationMessageFor(model => model.UnitCost, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <span>Quantity </span>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { type = "number", @class = "form-control", required = "required", placeholder = "Quantity..." } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <span>Description</span>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { type = "text", @class = "form-control", required = "required", placeholder = "Description..." } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <span>Status</span>
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { type = "text", @class = "form-control", required = "required", placeholder = "Status..." } })
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <span>Category</span>
+            <div class="col-md-6">
+
+                @Html.DropDownListFor(m => m.CategoryID, (IEnumerable<SelectListItem>)ViewBag.CategoryList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="" style=" display: flex; justify-content: flex-end;">
+                <input id="buttonMain" type="submit" value="Add" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+}

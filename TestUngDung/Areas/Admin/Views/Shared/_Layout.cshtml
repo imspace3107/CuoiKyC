@@ -1,0 +1,250 @@
+﻿
+@using ModelEF.Model;
+@using TestUngDung.Areas.Admin.Model
+@using TestUngDung.Common;
+@{
+    Layout = null;
+}
+<style>
+    #titleMain {
+        text-transform: initial;
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="ThemeBucket">
+    <link rel="shortcut icon" href="~/Assets/images/favicon.png">
+
+    <title>Trang Chu</title>
+    <!--Core CSS ~/Assets/ -->
+    <link href="~/Assets/bs3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Assets/js/jquery-ui/jquery-ui-1.10.1.custom.min.css" rel="stylesheet">
+    <link href="~/Assets/css/bootstrap-reset.css" rel="stylesheet">
+    <link href="~/Assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!--Morris Chart CSS -->
+    <link rel="stylesheet" href="~/Assets/js/morris-chart/morris.css">
+    <!-- Custom styles for this template -->
+    <link href="~/Assets/css/style.css" rel="stylesheet">
+    <link href="~/Assets/css/style-responsive.css" rel="stylesheet" />
+    <style>
+        .titleMain {
+            font-size: 13px;
+        }
+
+        body {
+            color: #767676;
+            background: #f1f2f7;
+            font-family: 'Open Sans',sans-serif;
+            padding: 0px !important;
+            margin: 0px !important;
+            font-size: 13px;
+            text-rendering: optimizeLegibility;
+            background: #fff;
+        }
+
+        .glyphicon.glyphicon-trash {
+            font-size: 20px;
+            color: red;
+        }
+
+        ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
+            background: #ffffff;
+        }
+
+        .wrapper {
+            display: inline-block;
+            margin-top: 80px;
+            padding: inherit !important;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .glyphicon.glyphicon-trash:hover {
+            color: red;
+        }
+
+        .glyphicon.glyphicon-edit {
+            font-size: 20px;
+            color: green;
+        }
+
+            .glyphicon.glyphicon-edit:hover {
+                color: green;
+            }
+
+        .brand {
+            background: #000;
+            float: left;
+            width: 240px;
+            height: 80px;
+            position: relative;
+        }
+
+        .top-nav ul.top-menu > li > a {
+            border: none;
+            background: #fff !important;
+        }
+
+            .top-nav ul.top-menu > li > a:hover, .top-nav ul.top-menu > li > a:focus {
+                background: #fff !important;
+                border: none;
+            }
+
+        .leftside-navigation {
+            background: #000;
+        }
+
+        ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
+            background: #ffffff;
+            color: #1FB5AD;
+            display: block;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
+            -ms-transition: all 0.3s ease;
+            transition: all 0.3s ease;
+        }
+
+        .table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <section id="container">
+        <!--header start-->
+        <header class="header fixed-top clearfix">
+            <!--logo start-->
+            <div class="brand" style=" display: flex; justify-content: center; align-items: center;">
+                <a href="/Website/Home"> <img alt="" style=" width: 100px; height: 60px;" src="~/Assets/style/images/logo.png"></a>
+
+            </div>
+            <!--logo end-->
+            <div class="top-nav clearfix">
+                <!--search & user info start-->
+                <ul class="nav pull-right top-menu">
+                    <!-- user login dropdown start-->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                 
+                            <span class="username">
+                                @{
+                                    var session = Session[Constants.USER_SESSION];
+                                    if (session != null)
+                                    { @session}
+                                }
+
+                            </span>
+
+                        </a>
+                        <ul class="dropdown-menu extended logout">
+                            <li>
+                                <a href="@Url.Action("Logout","Home")">
+                                    <i class="fa fa-key"></i>Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- user login dropdown end -->
+
+                </ul>
+                <!--search & user info end-->
+            </div>
+        </header>
+        <!--header end-->
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse">
+                <!-- sidebar menu start-->
+                <div class="leftside-navigation">
+                    <ul class="sidebar-menu" id="nav-accordion">
+
+                        <li>
+                            <a class="active" href="~/Admin/Home/Index">
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <span>Product</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="~/Admin/Product/Index">List Product</a></li>
+                                <li><a href="~/Admin/Product/Create">Add</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="~/Admin/User/Index">
+                                <span>UserAccount</span>
+                            </a>
+                        </li>
+
+
+
+                    </ul>
+                </div>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+                <div class="row">
+                    <div class="col-md-12">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                <label style="color:red"><b>@RenderSection("header", required: true)</b></label>
+                            </header>
+                            <div class="panel-body">
+                                @if (TempData["AlertMessage"] != null)
+                                {
+                                    <div id="AlertBox" class="alert @TempData["AlertType"] hide">
+                                        @TempData["AlertMessage"]
+                                    </div>
+                                }
+                                @RenderBody()
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <!--main content end-->
+        <!--right sidebar start-->
+        <!--right sidebar end-->
+    </section>
+    <!-- Placed js at the end of the document so the pages load faster -->
+    <!--Core js-->
+    <script src="~/Assets/js/jquery.js"></script>
+    <script src="~/Assets/js/jquery-ui/jquery-ui-1.10.1.custom.min.js"></script>
+    <script src="~/Assets/bs3/js/bootstrap.min.js"></script>
+    <script src="~/Assets/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="~/Assets/js/jquery.nicescroll.js"></script>
+    <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]--
+
+    <!--common script init for all pages-->
+    <script src="~/Assets/js/scripts.js"></script>
+    <!--script for this page-->
+    <script>
+        $(function () {
+            $('#AlertBox').removeClass('hide');
+            $('#AlertBox').delay(5000).slideUp(500);
+        });
+    </script>
+    @*<script src="~/Assets/Plugins/ckfinder/ckfinder_v1.js"></script>*@
+    <script src="~/Assets/Plugins/ckfinder/ckfinder.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+    @RenderSection("footerjs", required: false);
+</body>
+</html>

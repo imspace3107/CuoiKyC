@@ -1,0 +1,105 @@
+﻿@model ModelEF.Model.Product
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    img#imgProduct {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
+
+    #titleMain {
+        font-size: 20px;
+    }
+
+    .form-group input#buttonMain {
+        padding: 10px 15px;
+        width: 200px;
+    }
+</style>
+@section header{
+    <div id="titleMain" style="font-size:16px">
+        <a href="~/Admin/Home/Index"> Trang chủ</a>  &#160;/&#160; Chi tiết sản phẩm  &#160;/&#160; <span style="color:#ff0000">@Html.DisplayFor(model => model.Name)</span>
+    </div>
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+
+        <div class="col-lg-12 form-group">
+            <div class="col-md-6" style=" padding: 0;">
+                @Html.ActionLink("Quay lại", "Index", "Product", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+        @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+
+        <table class="table">
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    UnitCost
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Image
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Category
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ValueFor(model => model.ID)
+                </td>
+                <td>
+                    @Html.ValueFor(model => model.Name)
+                </td>
+                <td>
+                    @{
+                        //var UnitCost = String.Format("{0:#,##0 vnđ}", item.UnitCost);
+                        var price = @Html.ValueFor(model => model.UnitCost).ToString();
+                        var UnitCost = String.Format("{0:C}", int.Parse(price));
+                    }
+                    @Html.ValueFor(model => UnitCost)
+
+                </td>
+                <td>
+                    @Html.ValueFor(model => model.Quantity)
+                </td>
+                <td>
+                    <img id="imgProduct" src="@Html.ValueFor(model => model.Image)" />
+                </td>
+                <td>
+                    @Html.ValueFor(model => model.Description)
+                </td>
+                <td>
+                    @Html.ValueFor(model => model.Status)
+                </td>
+                <td>
+                    @Html.ValueFor(model => model.Category.Name)
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+

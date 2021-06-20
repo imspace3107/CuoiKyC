@@ -1,0 +1,112 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model PagedList.IPagedList<ModelEF.Model.Product>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <div id="titleMain" style="font-size:16px">
+        <span style="color: #7b7b7b"> List Product </span>
+    </div>
+}
+
+<style>
+    img#imgProduct {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
+
+    td > a {
+        color: blue;
+        font-weight: bold;
+    }
+</style>
+@using (Html.BeginForm("Index", "Product", FormMethod.Get))
+{
+    <div class="col-lg-12 form-group" style="padding: 0;">
+        <div class="col-md-6" style="padding: 0;">
+            @Html.ActionLink("Add new", "Create", "Product", null, new { @class = "btn btn-primary" })
+        </div>
+        <div class="col-md-5">
+            <input type="text" style=" width: 100%; padding: 6px; border: 1px solid #c7cbd6; border-radius: 3px;" id="search" value="@ViewBag.searchString" name="searchString" placeholder="Search...">
+        </div>
+        <div class="col-md-1" style="padding: 0; display: flex; justify-content: flex-end;">
+            <input type="submit" id="gsearch" value="Search" class="btn btn-default" style=" width: 100%;">
+        </div>
+    </div>
+}
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>
+            Name
+        </th>
+        <th>
+            UnitCose
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>Image</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Category</th>
+        <th style="text-align:center; width:15%">Action</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr id="row_@item.ID">
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @{
+                    //var UnitCost = String.Format("{0:#,##0 vnđ}", item.UnitCost);
+                    var UnitCost = String.Format("{0:C}", item.UnitCost);
+                }
+                @Html.DisplayFor(modelItem => UnitCost)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                <img id="imgProduct" src="@item.Image" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Name)
+            </td>
+            <td style="text-align: center; font-size: 14px; color: #ff0f0f">
+                <div>
+                    @Html.ActionLink(" ", "Detail", new { ID = @item.ID },
+                new { @class = "glyphicon glyphicon-edit" })
+                    @Ajax.ActionLink(" ", "Delete", new { @ID = @Html.DisplayFor(modelItem => item.ID) }, new AjaxOptions
+                    {
+                        Confirm = "Bạn muốn xóa danh mục này?",
+                        OnComplete = "$('#row_" + item.ID + "').remove()",
+                        HttpMethod = "Delete",
+                    }, new { @class = "glyphicon glyphicon-trash" })
+                </div>
+            </td>
+
+
+        </tr>
+    }
+
+</table>
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = @ViewBag.SearchString }))
+</div>
+

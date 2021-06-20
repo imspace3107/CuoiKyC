@@ -1,0 +1,114 @@
+﻿@model IEnumerable<ModelEF.Model.Product>
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>Index</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="~/Assets/style/css/bootstrap.min.css">
+    <!-- style css -->
+    <link rel="stylesheet" href="~/Assets/style/css/style.css">
+    <!-- Responsive-->
+    <link rel="stylesheet" href="~/Assets/style/css/responsive.css">
+    <!-- fevicon -->
+    <link rel="icon" href="~/Assets/style/images/fevicon.png" type="image/gif" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="~/Assets/style/css/jquery.mCustomScrollbar.min.css">
+    <!-- Tweaks for older IEs-->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+    <!-- owl stylesheets -->
+    <link rel="stylesheet" href="~/Assets/style/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/Assets/style/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<!-- body -->
+<body class="main-layout">
+    <!-- header section start -->
+    <div class="header_section" style=" background: #000;">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="logo"><a href="/User/Home"><img style=" height: 60px; width: 60px;" src="~/Assets/style/images/logo.png"></a></div>
+                </div>
+                <div class="col-sm-9">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="justify-content: center;">
+                            <div class="navbar-nav">
+                                <a class="nav-item nav-link" href="/User/Home">Home</a>
+                                <a class="nav-item nav-link last" href="/Admin/Login"><img style=" width: 30px; height: 30px;" src="~/Assets/style/images/login.png"></a>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="layout_padding gallery_section" style=" background-color: #ffffff;">
+        <div class="container">
+            <div><span style="text-align: center; display: flex; justify-content: center; font-size: 25px; color: #000; margin-bottom: 20px;">Danh sách sản phẩm</span></div>
+            <div class="row">
+                @foreach (var item in Model)
+                {
+
+                    <div class="col-sm-4">
+                        <div class="best_shoes" style="background: whitesmoke; box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%); ">
+                            <p class="best_text">@item.Name </p>
+                            <div class="shoes_icon">
+                                @if (item.Image != null)
+                                {
+                                    <img src="@item.Image" style="height: 200px;">
+                                }
+                                else
+                                {
+                                    <img src="~/Assets/style/images/book-img4.png">
+                                }
+                            </div>
+                            <div class="star_text">
+                                <div class="right_part" style="width:100%">
+                                    <div class="shoes_price" style=" display: flex; justify-content: center; align-items: center; width: 100%;"><span style=" font-size: 24px;">@String.Format("{0:c0}", @item.UnitCost)</span></div>
+                                    <div class="shoes_price" style=" display: flex; justify-content: center; align-items: center; width: 100%;"><span style=" font-size: 24px;">@item.Category.Name</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+  
+
+    <!-- Javascript files-->
+    <script src="~/Assets/style/js/jquery.min.js"></script>
+    <script src="~/Assets/style/js/popper.min.js"></script>
+    <script src="~/Assets/style/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Assets/style/js/jquery-3.0.0.min.js"></script>
+    <script src="~/Assets/style/js/plugin.js"></script>
+    <!-- sidebar -->
+    <script src="~/Assets/style/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="~/Assets/style/js/custom.js"></script>
+    <!-- javascript -->
+    <script src="~/Assets/style/js/owl.carousel.js"></script>
+    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+  
+</body>
+</html>
